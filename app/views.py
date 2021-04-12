@@ -36,19 +36,17 @@ def index(path):
 @app.route("/api/upload", methods=["POST"])
 def upload():
     form = UploadForm()
-    if request.method == "POST" and form.validate_on_submit:
+    if request.method == "POST" and form.validate_on_submit():
         photo = form.photo.data
         description = form.description.data
         filename = secure_filename(photo.filename)
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify(message="File Upload Successful", filename=filename, description=description)
+        return jsonify({"message":"File Uploaded Successfully", "filename": filename, "description" : description})
     else:
         errors = form_errors(form)
-        return jsonify(errors=errors)
+        return jsonify(errors=form_errors(errors))
 
-    return render_template('upload.html')
-
-@app.route("/api/upload/<filename>")
+@app.route("/upload/<filename>")
 def get_image(filename):
     root_dir = os.getcwd()
 

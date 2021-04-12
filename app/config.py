@@ -5,7 +5,7 @@ class Config(object):
     """Base Config Object"""
     DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Som3$ec5etK*y'
-    UPLOAD_FOLDER = './api/upload'
+    UPLOAD_FOLDER = './app/img'
 
     app = Flask(__name__)
 
